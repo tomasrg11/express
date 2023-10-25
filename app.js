@@ -48,3 +48,16 @@ app.get('/api/artículos/:id', (req,res)=>{
         }
     });
 });
+
+//metodo crear un articulo
+app.post('/api/articulos',(req,res)=>{
+    let data = {id:req.body.id, descripcion:req.body.descripcion, precio:req.body.precio, stock:req.body.stock};
+    let sql = "INSERT INTO articulos SET ?";
+    conexion.query(sql, data, function(error,results){
+        if(error){
+            throw error;
+        }else{
+           res.send(results);     
+        }
+    });
+});
