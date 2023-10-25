@@ -14,8 +14,8 @@ app.get('/', function(req,res){
 //objeto de la conexion--  se establecen los parámetros
 let conexion = mysql.createConnection({
     host:'localhost',
-    user:'root',
-    password:'',
+    user:'tomramirezg11',
+    password:'tomasramirez2006',
     database:'articulosdb'
 });
 // Probar la conexión
@@ -27,12 +27,24 @@ conexion.connect(function(error){
    }
 });
 
+//mostrar todos los articulos
 app.get('/api/articulos', (req,res)=>{
     conexion.query('SELECT * FROM articulos', (error,filas)=>{
         if(error){
             throw error;
         }else{
             res.send(filas);
+        }
+    });
+});
+
+//mostrar un articulo
+app.get('/api/artículos/:id', (req,res)=>{
+    conexion.query('SELECT * FROM artículos WHERE id=?', [req.params.id] , (error,fila)=>{
+        if(error){
+            throw error;
+        }else{
+           res.send(fila[0].descripción);
         }
     });
 });
